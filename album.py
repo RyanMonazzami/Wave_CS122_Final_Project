@@ -1,0 +1,1 @@
+# Album object includes album attributes and stores collection of songs

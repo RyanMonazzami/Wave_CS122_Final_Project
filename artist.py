@@ -1,0 +1,1 @@
+# Artist object that contains artist attributes alongside collection of albums and singles
