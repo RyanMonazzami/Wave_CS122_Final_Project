@@ -1,4 +1,4 @@
-# Library object stores all songs, albums, and artists and handles searching and filtering them
+# library stores all songs, albums, and artists and also handles searching and filtering
 
 
 class Library:
