@@ -1,17 +1,23 @@
 # Album object includes album attributes and stores collection of songs
 
-from artist import Artist
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 
-class Album:
-    def __init__(self, album_id, title, artist: Artist, release_date):
-        self.album_id = album_id
-        self.title = title
-        self.artist = artist
-        self.release_date = release_date
+from database import Base
 
-        self.songs = []
+class Album(Base):
+    # Albums table
+    __tablename__ = "albums"
+    # Album attributes
+    album_id = Column(Integer, primary_key=True)
+    title = Column(String, nullable=False)
+    artist_id = Column(Integer, ForeignKey("artists.artist_id"), nullable=False)
+    release_date = Column(String)
 
-        artist.add_album(self)
+    # Artist and song relationships
+    # back_populates syncs relationships 
+    artist = relationship("Artist", back_populates="albums")
+    songs = relationship("Song", back_populates="album")
 
     def add_song(self, song):
         if song not in self.songs:

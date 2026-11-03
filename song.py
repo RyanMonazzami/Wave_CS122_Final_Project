@@ -1,19 +1,25 @@
 # Holds all song attributes
-from artist import Artist
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
 
-class Song:
-    def __init__ (self, song_id, title, artist: Artist, album, genre, file_path):
-        self.song_id = song_id
-        self.title = title
-        self.artist = artist
-        self.album = album
-        self.genre = genre
-        self.file_path = file_path
+from database import Base
 
-        if album is not None:
-            album.add_song(self)
+class Song(Base):
+    # Song table
+    __tablename__ = "songs"
 
-        artist.add_song(self)
+    # Song attributes
+    song_id = Column(Integer, primary_key=True)
+    title = Column(String, nullable=False)
+    artist_id = Column(Integer, ForeignKey("artists.artist_id"), nullable=False)
+    album_id = Column(Integer, ForeignKey("albums.album_id"), nullable=True)
+    genre = Column(String, nullable=False)
+    file_path = Column(String, nullable=False)
+
+    # Artist and album relationships
+    # back_populates syncs relationships
+    artist = relationship("Artist", back_populates="songs")
+    album = relationship("Album", back_populates="songs")
 
     def print_song(self):
         print(f"{self.title} - {self.artist} - {self.album} - {self.genre}")
