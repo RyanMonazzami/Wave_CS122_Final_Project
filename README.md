@@ -8,3 +8,7 @@ For Windows
 ```
 pip install pygame
 ```
+Install SQLAlchemy
+```
+python -m pip install SQLAlchemy
+```
