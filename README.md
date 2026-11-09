@@ -1,6 +1,6 @@
 # Wave_CS122_Final_Project
-Quick Start
-Run these commands from the project root. First, create and activate a Python virtual environment.
+Quick Start\
+Run these commands from the project root. First, create and activate a Python virtual environment\
 MacOS:
 ```
 python3 -m venv .venv
