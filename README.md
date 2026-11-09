@@ -1,30 +1,43 @@
 # Wave_CS122_Final_Project
-Quick Start\
+## Quick Start
 Run these commands from the project root. First, create and activate a Python virtual environment\
-MacOS:
+### MacOS:
 ```
 python3 -m venv .venv
 source .venv/bin/activate
 ```
-Windows Powershell
+### Windows Powershell
 ```
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
-Install SQLAlchemy
+### Install SQLAlchemy
 ```
 python -m pip install SQLAlchemy
 ```
 
-Install the web app dependencies with .venv active.
+### Install the web app dependencies
+
+With `.venv` active, run this from the project root.
+
+```bash
+python -m pip install Flask SQLAlchemy
 ```
-python -m pip install fastapi uvicorn SQLAlchemy
-```
-Load the database
-```
+
+### Set up the database and audio files
+
+Run this once when creating a fresh `wave.db`.
+
+```bash
 python load_database.py
 ```
-Start the web app
+
+Put the MP3 files in `Songs/` using the filenames specified in `load_database.py`.
+
+### Start the web app
+
+```bash
+flask --app api:app run --debug
 ```
-python -m uvicorn api:app --reload
-```
+
+Open [Wave in your browser](http://127.0.0.1:5000/).
