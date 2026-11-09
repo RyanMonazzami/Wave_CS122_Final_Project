@@ -8,7 +8,7 @@ init_db()
 # Start session
 session = Session()
 
-file_path = "Songs/Kanye_West_-_All_Falls_Down_-_feat._Sylena_Johnson.mp3"
+file_path = "Songs/All_Falls_Down.mp3"
 
 # Query for song from database or None if no song exists
 song = session.query(Song).filter(Song.file_path == file_path).first()
