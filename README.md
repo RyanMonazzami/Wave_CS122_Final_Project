@@ -1,14 +1,30 @@
 # Wave_CS122_Final_Project
-Install Pygame for audio playback\
-For Mac:
+Quick Start\
+Run these commands from the project root. First, create and activate a Python virtual environment\
+MacOS:
 ```
-python -m pip install pygame-ce
+python3 -m venv .venv
+source .venv/bin/activate
 ```
-For Windows
+Windows Powershell
 ```
-pip install pygame
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
 Install SQLAlchemy
 ```
 python -m pip install SQLAlchemy
+```
+
+Install the web app dependencies with .venv active.
+```
+python -m pip install fastapi uvicorn SQLAlchemy
+```
+Load the database
+```
+python load_database.py
+```
+Start the web app
+```
+python -m uvicorn api:app --reload
 ```
