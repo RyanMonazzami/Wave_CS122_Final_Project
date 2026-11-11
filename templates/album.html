@@ -12,14 +12,23 @@
 
 
 {% block content %}
-    <h1>{{ album.title }} — Songs</h1>
-    <ul>
+    <h1 class="my-4">{{ album.title }} — Songs</h1>
+        {% if album.artwork_filename %}
+        <img
+            src="{{ url_for('static', filename=album.artwork_filename) }}"
+            alt="Cover of {{ album.title }}"
+            width="200"
+            class="img-fluid mb-3"
+        >
+        {% endif %}
+    <ul class="list-group">
         {% for song in songs %}
-            <li>{{ song.title }}
-            <audio controls src="{{url_for('get_audio_song', song_id=song.song_id)}}" preload="none"></audio>
+            <li class="list-group-item">{{ song.title }}
+            <audio controls src="{{url_for('get_audio_song', song_id=song.song_id)}}" preload="none"
+                   class="d-block mt-2 w-100"></audio>
             </li>
         {% else %}
-            <li>No songs available.</li>
+            <li class="list-group-item">No songs available.</li>
         {% endfor %}
     </ul>
 {% endblock %}

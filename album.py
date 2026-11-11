@@ -11,6 +11,7 @@ class Album(Base):
     # Album attributes
     album_id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
+    artwork_filename = Column(String, nullable=True)
     artist_id = Column(Integer, ForeignKey("artists.artist_id"), nullable=False)
     release_date = Column(String)
 

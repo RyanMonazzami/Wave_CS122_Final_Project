@@ -21,6 +21,13 @@ class Song(Base):
     artist = relationship("Artist", back_populates="songs")
     album = relationship("Album", back_populates="songs")
 
+    def artwork_filename(self):
+        album = self.album
+        if album is None:
+            return None
+
+        return album.artwork_filename
+
     def print_song(self):
         print(f"{self.title} - {self.artist} - {self.album} - {self.genre}")
 

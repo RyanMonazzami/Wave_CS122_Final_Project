@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Artists</h1>
+    <h1 class="my-4">Artists</h1>
 
-    <ul>
+    <ul class="list-group">
         {% for artist in artists %}
-            <li><a href="{{ url_for('artist_page', artist_id=artist.artist_id)}}">{{artist.name}}</a></li>
+            <li class="list-group-item"><a href="{{ url_for('artist_page', artist_id=artist.artist_id)}}">{{artist.name}}</a></li>
         {% else %}
-            <li>No artists available.</li>
+            <li class="list-group-item">No artists available.</li>
         {% endfor %}
     </ul>
 {% endblock %}

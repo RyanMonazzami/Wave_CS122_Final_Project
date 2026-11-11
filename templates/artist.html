@@ -6,13 +6,13 @@
 
 
 {% block content %}
-    <h1>{{ artist.name }} — Albums</h1>
+    <h1 class="my-4">{{ artist.name }} — Albums</h1>
 
-    <ul>
+    <ul class="list-group">
         {% for album in albums %}
-            <li><a href="{{ url_for('album_page', album_id=album.album_id)}}">{{album.title}}</a></li>
+            <li class="list-group-item"><a href="{{ url_for('album_page', album_id=album.album_id)}}">{{album.title}}</a></li>
         {% else %}
-            <li>No albums available.</li>
+            <li class="list-group-item">No albums available.</li>
         {% endfor %}
     </ul>
 {% endblock %}
