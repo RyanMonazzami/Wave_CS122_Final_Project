@@ -6,11 +6,19 @@
 
 
 {% block content %}
-    <h1 class="my-4">{{ artist.name }} — Albums</h1>
+    <h1 class="my-4">{{ artist.name }}</h1>
 
     <ul class="list-group">
         {% for album in albums %}
-            <li class="list-group-item"><a href="{{ url_for('album_page', album_id=album.album_id)}}">{{album.title}}</a></li>
+            <li class="list-group-item"><a href="{{ url_for('album_page', album_id=album.album_id)}}"
+            class="d-flex align-items-center">
+                {% if album.artwork_filename %}
+                    <img src="{{ url_for('static', filename=album.artwork_filename) }}"
+                        alt=""
+                        width="64"
+                        class="mr-3">
+                {% endif %}
+                {{album.title}}</a></li>
         {% else %}
             <li class="list-group-item">No albums available.</li>
         {% endfor %}

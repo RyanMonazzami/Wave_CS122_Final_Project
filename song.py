@@ -21,6 +21,7 @@ class Song(Base):
     artist = relationship("Artist", back_populates="songs")
     album = relationship("Album", back_populates="songs")
 
+    @property
     def artwork_filename(self):
         album = self.album
         if album is None:
