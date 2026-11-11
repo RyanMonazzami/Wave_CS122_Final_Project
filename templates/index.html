@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Artists | Wave
+{% endblock %}
+
+{% block content %}
+    <h1>Artists</h1>
+
+    <ul>
+        {% for artist in artists %}
+            <li><a href="{{ url_for('artist_page', artist_id=artist.artist_id)}}">{{artist.name}}</a></li>
+        {% else %}
+            <li>No artists available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

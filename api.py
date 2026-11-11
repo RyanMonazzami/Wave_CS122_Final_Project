@@ -1,4 +1,6 @@
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, render_template, abort
+
+import album
 from database import Session
 from search import Library
 from song import Song
@@ -8,13 +10,29 @@ from artist import Artist
 app = Flask(__name__)
 
 @app.get("/")
-@app.get("/artists/{artist_id}")
-@app.get("/albums/{album_id}")
-def show_page():
-    return send_file(
-        Path(__file__).with_name("index.html"),
-        mimetype="text/html",
-    )
+def index():
+    with Session() as session:
+        artists = session.query(Artist).order_by(Artist.name).all()
+    return render_template("index.html", artists=artists)
+
+@app.get("/artists/<int:artist_id>")
+def artist_page(artist_id: int):
+    with Session() as session:
+        artist = session.get(Artist, artist_id)
+        if not artist:
+            abort(404)
+
+        return render_template("artist.html", artist=artist, albums=artist.albums)
+
+
+@app.get("/albums/<int:album_id>")
+def album_page(album_id: int):
+    with Session() as session:
+        album = session.get(Album, album_id)
+        if not album:
+            abort(404)
+
+        return render_template("album.html", album=album, songs=album.songs)
 
 @app.get("/songs")
 def get_songs(q: str = ""):

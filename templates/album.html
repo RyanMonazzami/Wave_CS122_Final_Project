@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{album.title}} | Wave
+{% endblock %}
+
+{% block navigation %}
+    <a href="{{ url_for('artist_page', artist_id=album.artist_id) }}">
+        Back to {{ album.artist.name }}
+    </a>
+{% endblock %}
+
+
+{% block content %}
+    <h1>{{ album.title }} — Songs</h1>
+    <ul>
+        {% for song in songs %}
+            <li>{{ song.title }}
+            <audio controls src="{{url_for('get_audio_song', song_id=song.song_id)}}" preload="none"></audio>
+            </li>
+        {% else %}
+            <li>No songs available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
