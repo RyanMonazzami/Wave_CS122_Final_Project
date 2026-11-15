@@ -19,6 +19,7 @@ h1 {
 
 .navbar {
     background-color: var(--wave-background);
+    padding-left: 0;
 }
 
 .navbar .navbar-brand {
@@ -172,5 +173,10 @@ a:hover {
 
 .album-artist-link:hover {
     color: var(--wave-blue);
+}
+
+.navbar-brand img {
+    transform: scale(2);
+    transform-origin: left center;
 }
 

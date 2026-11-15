@@ -14,7 +14,12 @@
 
 <body>
   <nav class="navbar navbar-dark sticky-top">
-      <a href="{{ url_for('index') }}" class="navbar-brand">Wave</a>
+      <a href="{{ url_for('index') }}" class="navbar-brand">
+          <img src="{{ url_for('static', filename='artwork/icon.png') }}" alt=""
+               class="d-block"
+               width="44"
+               height="44">
+    </a>
       {% block navigation %}{% endblock %}
   </nav>
   <div class="container">
