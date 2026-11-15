@@ -7,11 +7,20 @@
 {% block content %}
     <h1 class="my-4">Artists</h1>
 
-    <ul class="list-group">
+    <ul class="catalog-grid">
         {% for artist in artists %}
-            <li class="list-group-item"><a href="{{ url_for('artist_page', artist_id=artist.artist_id)}}">{{artist.name}}</a></li>
+            <li>
+                <a class="catalog-tile" href="{{ url_for('artist_page', artist_id=artist.artist_id) }}">
+                    <span class="catalog-tile-artwork" aria-hidden="true">
+                    {% if artist.portrait_filename %}
+                        <img src="{{ url_for('static', filename=artist.portrait_filename) }}" alt="">
+                    {% endif %}
+                    </span>
+                    <span class="catalog-tile-title">{{ artist.name }}</span>
+                </a>
+            </li>
         {% else %}
-            <li class="list-group-item">No artists available.</li>
+            <li class="catalog-empty">No artists available.</li>
         {% endfor %}
     </ul>
 {% endblock %}

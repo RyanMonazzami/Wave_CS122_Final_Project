@@ -11,8 +11,8 @@ with engine.connect() as connection:
 session = Session()
 
 # Artists
-kanye = Artist(artist_id=1, name="Kanye West")
-sade = Artist(artist_id=2, name="Sade")
+kanye = Artist(artist_id=1, name="Kanye West", portrait_filename="artists/1.jpg")
+sade = Artist(artist_id=2, name="Sade", portrait_filename="artists/2.jpg")
 
 # Albums
 tcd = Album(album_id=1, title="The College Dropout", artwork_filename="artwork/1.jpg", artist_id=1, release_date="2-10-2004")

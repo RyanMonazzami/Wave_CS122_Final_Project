@@ -4,38 +4,68 @@
   {{album.title}} | Wave
 {% endblock %}
 
-{% block navigation %}
-    <a href="{{ url_for('artist_page', artist_id=album.artist_id) }}">
-        Back to {{ album.artist.name }}
-    </a>
-{% endblock %}
-
-
 {% block content %}
-    <h1 class="my-4">{{ album.title }}</h1>
+    <header class="album-header">
         {% if album.artwork_filename %}
-        <img
-            src="{{ url_for('static', filename=album.artwork_filename) }}"
-            alt="Cover of {{ album.title }}"
-            width="200"
-            class="img-fluid mb-3"
-        >
+            <img class="album-header-cover"
+                src="{{ url_for('static', filename=album.artwork_filename) }}"
+                alt="Cover of {{ album.title }}"
+                width="200">
         {% endif %}
-    <ul class="list-group">
+
+        <div class="album-header-info">
+        <h1 class="mb-2">{{ album.title }}</h1>
+            <a class="btn album-artist-link"
+                href="{{ url_for('artist_page', artist_id=album.artist_id) }}">
+                {{ album.artist.name }}
+            </a>
+        </div>
+    </header>
+        <ul class="list-group album-songs">
         {% for song in songs %}
-            <li class="list-group-item">
-                {% if song.artwork_filename %}
-                    <img src="{{ url_for('static', filename=song.artwork_filename) }}"
-                         alt=""
-                         width="40"
-                         class="mr-2">
-                {% endif %}
-                {{ song.title }}
-            <audio controls src="{{url_for('get_audio_song', song_id=song.song_id)}}" preload="none"
-                   class="d-block mt-2 w-100"></audio>
+            <li class="list-group-item wave-song-row">
+                <button type="button" class="wave-song-button"
+                        data-track-url="{{ url_for('get_audio_song', song_id=song.song_id) }}"
+                        aria-label="Play {{ song.title }}">
+                    <span>{{ song.title }}</span>
+                    <span class="song-length"></span>
+                    <span class="wave-song-cue" aria-hidden="true">▶</span>
+                </button>
             </li>
         {% else %}
             <li class="list-group-item">No songs available.</li>
         {% endfor %}
     </ul>
+
+    <footer class="wave-player" aria-label="Music player">
+        <div class="container d-flex align-items-center h-100 pb-0">
+            <audio id="album-audio" class="w-100" controls preload="none"></audio>
+        </div>
+    </footer>
+
+    <script>
+        const player = document.getElementById("album-audio");
+        // For player
+        for (const button of document.querySelectorAll("[data-track-url]")) {
+            button.addEventListener("click", () => {
+                const url = button.dataset.trackUrl;
+                if (player.getAttribute("src") !== url) {
+                    player.src = url;
+                }
+                player.play().catch(error => console.error(error));
+            });
+        }
+
+        // Song lengths
+        for (const button of document.querySelectorAll("[data-track-url]")) {
+            const tempAudio = new Audio(button.dataset.trackUrl);
+            tempAudio.preload = "metadata";
+            tempAudio.onloadedmetadata = () => {
+            const mins = Math.floor(tempAudio.duration / 60);
+            const secs = String(Math.floor(tempAudio.duration % 60)).padStart(2, "0");
+            button.querySelector(".song-length").textContent = `${mins}:${secs}`;
+    };
+}
+
+    </script>
 {% endblock %}

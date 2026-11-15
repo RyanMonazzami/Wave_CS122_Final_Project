@@ -11,6 +11,7 @@ class Artist(Base):
     # Artist attributes
     artist_id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
+    portrait_filename = Column(String, nullable=True)
 
     # Albums and songs that belong to artist
     # back_populates syncs relationships

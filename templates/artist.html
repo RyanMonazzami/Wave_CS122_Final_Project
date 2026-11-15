@@ -8,19 +8,20 @@
 {% block content %}
     <h1 class="my-4">{{ artist.name }}</h1>
 
-    <ul class="list-group">
+    <ul class="catalog-grid">
         {% for album in albums %}
-            <li class="list-group-item"><a href="{{ url_for('album_page', album_id=album.album_id)}}"
-            class="d-flex align-items-center">
-                {% if album.artwork_filename %}
-                    <img src="{{ url_for('static', filename=album.artwork_filename) }}"
-                        alt=""
-                        width="64"
-                        class="mr-3">
-                {% endif %}
-                {{album.title}}</a></li>
+            <li>
+                <a class="catalog-tile" href="{{ url_for('album_page', album_id=album.album_id) }}">
+                    <span class="catalog-tile-artwork">
+                        {% if album.artwork_filename %}
+                            <img src="{{ url_for('static', filename=album.artwork_filename) }}" alt="">
+                        {% endif %}
+                    </span>
+                    <span class="catalog-tile-title">{{ album.title }}</span>
+                </a>
+            </li>
         {% else %}
-            <li class="list-group-item">No albums available.</li>
+            <li class="catalog-empty">No albums available.</li>
         {% endfor %}
     </ul>
 {% endblock %}

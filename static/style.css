@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400..700&display=swap");
+
+:root {
+    --wave-background: #313338;
+    --wave-surface: #2B2D31;
+    --wave-border: #41444B;
+    --wave-text: #FFFFFF;
+    --wave-blue: #4D7DFF;
+}
+
+body {
+    background-color: var(--wave-background);
+    color: var(--wave-text);
+}
+
+h1 {
+    font-weight: 700;
+}
+
+.navbar {
+    background-color: var(--wave-background);
+}
+
+.navbar .navbar-brand {
+    color: var(--wave-blue);
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.navbar .navbar-brand:hover {
+    color: var(--wave-blue);
+}
+
+a,
+a:hover {
+    color: var(--wave-text);
+}
+
+
+.list-group-item {
+    background-color: var(--wave-surface);
+    border-color: var(--wave-border);
+}
+
+.container {
+    padding-bottom: 2rem;
+}
+
+.container img {
+    border-radius: 6px;
+}
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.catalog-tile {
+    display: block;
+}
+
+.catalog-tile,
+.catalog-tile:hover {
+    text-decoration: none;
+}
+
+.catalog-tile-artwork {
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.catalog-tile-artwork img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.catalog-tile-title {
+    display: block;
+    margin-top: 0.25rem;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.wave-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    height: 4rem;
+    background-color: var(--wave-surface);
+    border-top: 1px solid var(--wave-border);
+}
+
+.album-songs {
+    margin-bottom: 3rem;
+}
+
+.wave-player {
+    background-color: var(--wave-surface);
+}
+
+.wave-song-row {
+    padding: 0;
+    background-color: var(--wave-surface);
+}
+
+.wave-song-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 0;
+    background-color:var(--wave-background);
+    color: var(--wave-text);
+}
+
+.wave-song-button:hover {
+    background-color: var(--wave-surface);
+}
+
+.wave-song-button:focus {
+    outline: 2px solid var(--wave-blue);
+    outline-offset: -2px;
+}
+
+.wave-song-cue {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    margin-left: auto;
+    border-radius: 50%;
+}
+
+.song-length {
+    color: var(--wave-blue);
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.album-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.album-header-cover {
+    max-width: 200px;
+    height: auto;
+}
+
+
+.album-artist-link {
+    color: var(--wave-blue);
+    font-size: 25px;
+    padding-left: 0;
+    padding-top: 0;
+}
+
+.album-artist-link:hover {
+    color: var(--wave-blue);
+}
+
