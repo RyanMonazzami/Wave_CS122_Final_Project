@@ -37,7 +37,7 @@ Put the MP3 files in `Songs/` using the filenames specified in `load_database.py
 ### Start the web app
 
 ```bash
-flask --app api:app run --debug
+flask --app app:app run --debug
 ```
 
 Open [Wave in your browser](http://127.0.0.1:5000/).
