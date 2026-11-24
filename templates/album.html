@@ -19,6 +19,9 @@
                 href="{{ url_for('artist_page', artist_id=album.artist_id) }}">
                 {{ album.artist.name }}
             </a>
+            <p class="album-details mb-0">
+                Released: {{ album.get_release_date() }} | Songs: {{ songs | length }}
+            </p>
         </div>
     </header>
         <ul class="list-group album-songs">
@@ -26,6 +29,7 @@
             <li class="list-group-item wave-song-row">
                 <button type="button" class="wave-song-button"
                         data-track-url="{{ url_for('get_audio_song', song_id=song.song_id) }}"
+                        data-song-title="{{ song.get_title() }}"
                         aria-label="Play {{ song.title }}">
                     <span>{{ song.title }}</span>
                     <span class="song-length"></span>
@@ -39,6 +43,7 @@
 
     <footer class="wave-player" aria-label="Music player">
         <div class="container d-flex align-items-center h-100 pb-0">
+            <span id="now-playing" class="now-playing"></span>
             <audio id="album-audio" class="w-100" controls preload="none"></audio>
         </div>
     </footer>
@@ -53,6 +58,14 @@
                     player.src = url;
                 }
                 player.play().catch(error => console.error(error));
+            });
+        }
+
+        // Show which song is playing
+        const nowPlaying = document.getElementById("now-playing");
+        for (const button of document.querySelectorAll("[data-track-url]")) {
+            button.addEventListener("click", () => {
+                nowPlaying.textContent = "Now playing: " + button.dataset.songTitle;
             });
         }
 

@@ -180,3 +180,34 @@ a:hover {
     transform-origin: left center;
 }
 
+
+/* search bar */
+.search-form .form-control {
+    width: 250px;
+    margin-right: 8px;
+}
+
+.search-button {
+    background-color: var(--wave-blue);
+    color: white;
+}
+
+.section-title {
+    font-weight: 700;
+}
+
+.song-sub {
+    color: gray;
+    font-size: 13px;
+    margin-left: 10px;
+}
+
+.artist-stats,
+.album-details {
+    color: gray;
+}
+
+.now-playing {
+    margin-right: 15px;
+    white-space: nowrap;
+}

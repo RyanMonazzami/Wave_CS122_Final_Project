@@ -32,5 +32,22 @@ class Artist(Base):
     def get_songs(self):
         return self.songs
 
+    def get_name(self):
+        return self.name
+
+    def get_song_count(self):
+        return len(self.songs)
+
+    def get_album_count(self):
+        return len(self.albums)
+
+    # returns genres without duplicates
+    def get_genres(self):
+        genres = []
+        for song in self.songs:
+            if song.genre not in genres:
+                genres.append(song.genre)
+        return genres
+
     def __str__(self):
         return f"{self.artist_id}, {self.name}"

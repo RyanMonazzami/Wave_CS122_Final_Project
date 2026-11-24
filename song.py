@@ -1,4 +1,6 @@
 # Holds all song attributes
+from pathlib import Path
+
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -29,8 +31,32 @@ class Song(Base):
 
         return album.artwork_filename
 
+    def get_title(self):
+        return self.title
+
+    def get_genre(self):
+        return self.genre
+
+    def get_file_path(self):
+        return self.file_path
+
+    def get_artist_name(self):
+        return self.artist.name
+
+    def get_album_title(self):
+        if self.album is None:
+            return "Single"
+        return self.album.title
+
+    # checks if the mp3 file exists
+    def has_audio_file(self):
+        return Path(self.file_path).is_file()
+
+    def get_info(self):
+        return f"{self.title} - {self.get_artist_name()} - {self.get_album_title()} - {self.genre}"
+
     def print_song(self):
-        print(f"{self.title} - {self.artist} - {self.album} - {self.genre}")
+        print(self.get_info())
 
     def __str__(self):
-        return f"{self.title} - {self.artist} - {self.album} - {self.genre}"
+        return self.get_info()

@@ -34,8 +34,39 @@ def album_page(album_id: int):
 
         return render_template("album.html", album=album, songs=album.songs)
 
+@app.get("/search")
+def search_page():
+    # get the search text and genre from the url
+    query = request.args.get("q", "")
+    genre = request.args.get("genre", "")
+
+    with Session() as session:
+        library = Library()
+        songs = session.query(Song).order_by(Song.song_id).all()
+
+        for song in songs:
+            library.add_song(song)
+
+        genres = library.get_genres()
+
+        song_results = []
+        album_results = []
+        artist_results = []
+
+        if query or genre:
+            song_results = library.filter_songs(title=query, genre=genre)
+
+            if query:
+                album_results = library.search_albums(query)
+                artist_results = library.search_artists(query)
+
+        return render_template("search.html", query=query, genre=genre, genres=genres,
+                               songs=song_results, albums=album_results, artists=artist_results)
+
 @app.get("/songs")
 def get_songs(q: str = ""):
+    # flask doesn't pass q in automatically so get it from the url
+    q = request.args.get("q", q)
     with Session() as session:
         library = Library()
         songs = session.query(Song).order_by(Song.song_id).all()
@@ -60,14 +91,14 @@ def get_audio_song(song_id: int):
         song = session.query(Song).filter_by(song_id=song_id).first()
 
         if not song:
-            raise jsonify(status_code=404, detail="Song not found.")
+            abort(404, "Song not found.")
 
         file_path = Path(song.file_path)
 
         if file_path.is_file():
             return send_file(file_path, mimetype="audio/mpeg")
         else:
-            raise jsonify(status_code=404, detail="File not found.")
+            abort(404, "File not found.")
 
 
 

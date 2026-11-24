@@ -6,7 +6,11 @@
 
 
 {% block content %}
-    <h1 class="my-4">{{ artist.name }}</h1>
+    <h1 class="mt-4 mb-1">{{ artist.name }}</h1>
+
+    <p class="artist-stats mb-4">
+        Albums: {{ artist.get_album_count() }} | Songs: {{ artist.get_song_count() }} | Genre: {{ artist.get_genres() | join(", ") }}
+    </p>
 
     <ul class="catalog-grid">
         {% for album in albums %}
@@ -22,6 +26,19 @@
             </li>
         {% else %}
             <li class="catalog-empty">No albums available.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- all songs by the artist -->
+    <h3 class="section-title mt-4">Songs</h3>
+    <ul class="list-group album-songs">
+        {% for song in artist.get_songs() %}
+            <li class="list-group-item">
+                <a href="{{ url_for('album_page', album_id=song.album_id) }}">{{ song.get_title() }}</a>
+                <span class="song-sub">{{ song.get_album_title() }}</span>
+            </li>
+        {% else %}
+            <li class="list-group-item">No songs available.</li>
         {% endfor %}
     </ul>
 {% endblock %}
