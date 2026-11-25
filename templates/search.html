@@ -5,12 +5,10 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="my-4">Search</h1>
 
-    <!-- genre filter -->
     <form class="form-inline mb-4" action="{{ url_for('search_page') }}" method="get">
         <input type="hidden" name="q" value="{{ query }}">
-        <select class="form-control mr-2" id="genre-select" name="genre">
+        <select class="form-control mr-2" id="genre-select" name="genre" onchange="this.form.submit()">
             <option value="">All genres</option>
             {% for g in genres %}
                 <option value="{{ g }}" {% if g == genre %}selected{% endif %}>{{ g }}</option>
@@ -20,56 +18,57 @@
     </form>
 
     {% if query %}
-        <p>Results for "{{ query }}"</p>
+        {% if artists %}
+            <h3 class="section-title">Artists</h3>
+            <ul class="catalog-grid mb-4">
+                {% for artist in artists %}
+                    <li>
+                        <a class="catalog-tile" href="{{ url_for('artist_page', artist_id=artist.artist_id) }}">
+                            <span class="catalog-tile-artwork">
+                                {% if artist.portrait_filename %}
+                                    <img src="{{ url_for('static', filename=artist.portrait_filename) }}" alt="">
+                                {% endif %}
+                            </span>
+                            <span class="catalog-tile-title">{{ artist.name }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if albums %}
+            <h3 class="section-title">Albums</h3>
+            <ul class="catalog-grid mb-4">
+                {% for album in albums %}
+                    <li>
+                        <a class="catalog-tile" href="{{ url_for('album_page', album_id=album.album_id) }}">
+                            <span class="catalog-tile-artwork">
+                                {% if album.artwork_filename %}
+                                    <img src="{{ url_for('static', filename=album.artwork_filename) }}" alt="">
+                                {% endif %}
+                            </span>
+                            <span class="catalog-tile-title">{{ album.title }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% endif %}
 
-    <h3 class="section-title">Songs</h3>
-    <ul class="list-group album-songs">
-        {% for song in songs %}
-            <li class="list-group-item">
-                <a href="{{ url_for('album_page', album_id=song.album_id) }}">{{ song.get_title() }}</a>
-                <span class="song-sub">{{ song.get_artist_name() }} - {{ song.get_album_title() }} - {{ song.get_genre() }}</span>
-            </li>
-        {% else %}
-            <li class="list-group-item">No songs found.</li>
-        {% endfor %}
-    </ul>
-
-    {% if query %}
-        <h3 class="section-title">Albums</h3>
-        <ul class="catalog-grid mb-4">
-            {% for album in albums %}
-                <li>
-                    <a class="catalog-tile" href="{{ url_for('album_page', album_id=album.album_id) }}">
-                        <span class="catalog-tile-artwork">
-                            {% if album.artwork_filename %}
-                                <img src="{{ url_for('static', filename=album.artwork_filename) }}" alt="">
-                            {% endif %}
-                        </span>
-                        <span class="catalog-tile-title">{{ album.title }}</span>
-                    </a>
+    {% if songs %}
+        <h3 class="section-title">Songs</h3>
+        <ul class="list-group mb-4">
+            {% for song in songs %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('album_page', album_id=song.album_id) }}">{{ song.get_title() }}</a>
+                    <span class="song-sub">{{ song.get_artist_name() }} - {{ song.get_album_title() }} - {{ song.get_genre() }}</span>
                 </li>
-            {% else %}
-                <li class="catalog-empty">No albums found.</li>
-            {% endfor %}
-        </ul>
-
-        <h3 class="section-title">Artists</h3>
-        <ul class="catalog-grid">
-            {% for artist in artists %}
-                <li>
-                    <a class="catalog-tile" href="{{ url_for('artist_page', artist_id=artist.artist_id) }}">
-                        <span class="catalog-tile-artwork">
-                            {% if artist.portrait_filename %}
-                                <img src="{{ url_for('static', filename=artist.portrait_filename) }}" alt="">
-                            {% endif %}
-                        </span>
-                        <span class="catalog-tile-title">{{ artist.name }}</span>
-                    </a>
-                </li>
-            {% else %}
-                <li class="catalog-empty">No artists found.</li>
             {% endfor %}
         </ul>
     {% endif %}
+
+    {% if not artists and not albums and not songs %}
+        <p>No results found. Try another search.</p>
+    {% endif %}
+
 {% endblock %}

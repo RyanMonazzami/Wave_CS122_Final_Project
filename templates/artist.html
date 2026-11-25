@@ -28,17 +28,4 @@
             <li class="catalog-empty">No albums available.</li>
         {% endfor %}
     </ul>
-
-    <!-- all songs by the artist -->
-    <h3 class="section-title mt-4">Songs</h3>
-    <ul class="list-group album-songs">
-        {% for song in artist.get_songs() %}
-            <li class="list-group-item">
-                <a href="{{ url_for('album_page', album_id=song.album_id) }}">{{ song.get_title() }}</a>
-                <span class="song-sub">{{ song.get_album_title() }}</span>
-            </li>
-        {% else %}
-            <li class="list-group-item">No songs available.</li>
-        {% endfor %}
-    </ul>
 {% endblock %}

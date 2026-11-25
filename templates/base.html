@@ -20,13 +20,10 @@
                width="44"
                height="44">
     </a>
-      {% block navigation %}{% endblock %}
-
-      <!-- search bar -->
       <form class="form-inline search-form" action="{{ url_for('search_page') }}" method="get">
-          <input class="form-control" type="text" name="q" placeholder="Search">
-          <button class="btn search-button" type="submit">Search</button>
+          <input class="form-control" type="text" name="q" value="{{ request.args.get('q', '') }}" placeholder="⌕" aria-label="Search">
       </form>
+      {% block navigation %}{% endblock %}
   </nav>
   <div class="container">
       {% block content %}{% endblock %}

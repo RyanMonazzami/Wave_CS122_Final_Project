@@ -20,6 +20,7 @@ h1 {
 .navbar {
     background-color: var(--wave-background);
     padding-left: 0;
+    justify-content: flex-start;
 }
 
 .navbar .navbar-brand {
@@ -27,6 +28,7 @@ h1 {
     font-size: 2.5rem;
     font-weight: 700;
     line-height: 1;
+    margin-right: 3.5rem;
 }
 
 .navbar .navbar-brand:hover {
@@ -107,10 +109,6 @@ a:hover {
     margin-bottom: 3rem;
 }
 
-.wave-player {
-    background-color: var(--wave-surface);
-}
-
 .wave-song-row {
     padding: 0;
     background-color: var(--wave-surface);
@@ -180,20 +178,15 @@ a:hover {
     transform-origin: left center;
 }
 
-
-/* search bar */
 .search-form .form-control {
     width: 250px;
-    margin-right: 8px;
+    margin-right: 0px;
+    background-color: var(--wave-border);
+    border-color: black;
 }
 
 .search-button {
-    background-color: var(--wave-blue);
-    color: white;
-}
-
-.section-title {
-    font-weight: 700;
+    display: none;
 }
 
 .song-sub {
@@ -210,4 +203,42 @@ a:hover {
 .now-playing {
     margin-right: 15px;
     white-space: nowrap;
+}
+
+.search-form {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.search-form .form-control,
+.search-form .form-control:focus {
+    color: var(--wave-text);
+}
+
+.search-form .form-control::placeholder {
+    color: var(--wave-text);
+    opacity: 1;
+}
+
+#genre-select,
+#genre-select:focus {
+    background-color: var(--wave-surface);
+    color: var(--wave-text);
+    border-color: var(--wave-border);
+    color-scheme: dark;
+}
+
+#genre-select option {
+    background-color: var(--wave-surface);
+    color: var(--wave-text);
+}
+
+form:has(#genre-select) {
+    margin-left: calc(50% - 50vw + 1rem);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
 }
